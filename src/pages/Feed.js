@@ -32,7 +32,6 @@ export default class Feed extends Component {
 
               <img src={more} alt="Mais" />
             </header>
-
             <img src={`http://localhost:3333/api/files/${post.image}`} alt="" />
 
             <footer>
