@@ -6,10 +6,10 @@ import "./New.css";
 export default class New extends Component {
   state = {
     image: null,
-    author: "Bruno Cardoso Teixeira",
-    place: "Jaú - SP",
-    description: "Estava só testando a câmera",
-    hashtags: "#teste #react #nodejs #ops"
+    author: "",
+    place: "",
+    description: "",
+    hashtags: ""
   };
 
   handleSubmit = async event => {
