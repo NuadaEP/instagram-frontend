@@ -11,41 +11,39 @@ import send from "../assets/send.svg";
 
 export default class Feed extends Component {
   state = {
-    feed: []
+    feed: [],
   };
 
   async componentDidMount() {
     this.registerToSocket();
 
-    const response = await api.get("posts");
+    const { data: feed } = await api.get("posts");
 
-    this.setState({ feed: response.data });
+    this.setState({ feed });
   }
 
   registerToSocket = () => {
-    const socket = io("http://localhost:3333");
+    const socket = io(process.env.BASE_URL);
 
-    socket.on("post", newPost => {
+    socket.on("post", (newPost) => {
       this.setState({ feed: [newPost, ...this.state.feed] });
     });
 
-    socket.on("like", likedPost => {
+    socket.on("like", (likedPost) => {
       this.setState({
-        feed: this.state.feed.map(post =>
+        feed: this.state.feed.map((post) =>
           post._id == likedPost._id ? likedPost : post
-        )
+        ),
       });
     });
   };
 
-  handleLike = id => {
-    api.post(`posts/${id}/like`);
-  };
+  handleLike = (id) => api.post(`posts/${id}/like`);
 
   render() {
     return (
       <section id="post-list">
-        {this.state.feed.map(post => (
+        {this.state.feed.map((post) => (
           <article key={post._id}>
             <header>
               <div className="user-info">
@@ -55,7 +53,10 @@ export default class Feed extends Component {
 
               <img src={more} alt="Mais" />
             </header>
-            <img src={`http://localhost:3333/api/files/${post.image}`} alt="" />
+            <img
+              src={`${process.env.BASE_URL}/api/files/${post.image}`}
+              alt=""
+            />
 
             <footer>
               <div className="actions">
