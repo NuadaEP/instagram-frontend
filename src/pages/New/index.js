@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import api from "../services/api";
 
-import "./New.css";
+import "./style.css";
 
 export default class New extends Component {
   state = {
@@ -9,10 +9,10 @@ export default class New extends Component {
     author: "",
     place: "",
     description: "",
-    hashtags: ""
+    hashtags: "",
   };
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = new FormData();
@@ -28,11 +28,11 @@ export default class New extends Component {
     this.props.history.push("/");
   };
 
-  handleImageChange = event => {
+  handleImageChange = (event) => {
     this.setState({ image: event.target.files[0] });
   };
 
-  handleChage = event => {
+  handleChage = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 

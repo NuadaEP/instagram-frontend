@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import api from "../services/api";
 import io from "socket.io-client";
 
-import "./Feed.css";
+import "./style.css";
 
 import more from "../assets/more.svg";
 import like from "../assets/like.svg";
