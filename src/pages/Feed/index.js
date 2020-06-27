@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import api from "../services/api";
+import api from "../../services/api";
 import io from "socket.io-client";
 
 import "./style.css";
 
-import more from "../assets/more.svg";
-import like from "../assets/like.svg";
-import comment from "../assets/comment.svg";
-import send from "../assets/send.svg";
+import more from "../../assets/more.svg";
+import like from "../../assets/like.svg";
+import comment from "../../assets/comment.svg";
+import send from "../../assets/send.svg";
 
 export default class Feed extends Component {
   state = {
@@ -23,7 +23,7 @@ export default class Feed extends Component {
   }
 
   registerToSocket = () => {
-    const socket = io(process.env.BASE_URL);
+    const socket = io(process.env.REACT_APP_BASE_URL);
 
     socket.on("post", (newPost) => {
       this.setState({ feed: [newPost, ...this.state.feed] });
@@ -32,7 +32,7 @@ export default class Feed extends Component {
     socket.on("like", (likedPost) => {
       this.setState({
         feed: this.state.feed.map((post) =>
-          post._id == likedPost._id ? likedPost : post
+          post._id === likedPost._id ? likedPost : post
         ),
       });
     });
@@ -54,7 +54,7 @@ export default class Feed extends Component {
               <img src={more} alt="Mais" />
             </header>
             <img
-              src={`${process.env.BASE_URL}/api/files/${post.image}`}
+              src={`${process.env.REACT_APP_BASE_URL}/api/files/${post.image}`}
               alt=""
             />
 

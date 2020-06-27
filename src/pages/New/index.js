@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import api from "../services/api";
+import api from "../../services/api";
 
 import "./style.css";
 
@@ -13,19 +13,23 @@ export default class New extends Component {
   };
 
   handleSubmit = async (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
 
-    const data = new FormData();
+      const data = new FormData();
 
-    data.append("image", this.state.image);
-    data.append("author", this.state.author);
-    data.append("place", this.state.place);
-    data.append("description", this.state.description);
-    data.append("hashtags", this.state.hashtags);
+      data.append("image", this.state.image);
+      data.append("author", this.state.author);
+      data.append("place", this.state.place);
+      data.append("description", this.state.description);
+      data.append("hashtags", this.state.hashtags);
 
-    await api.post("posts/create", data);
+      await api.post("posts/create", data);
 
-    this.props.history.push("/");
+      this.props.history.push("/");
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   handleImageChange = (event) => {
